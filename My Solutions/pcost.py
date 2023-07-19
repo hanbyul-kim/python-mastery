@@ -8,4 +8,5 @@ def portfolio_cost(filename):
             ans += int(num) * float(price)
     return ans
 
-print(portfolio_cost('Data/portfolio2.dat'))
+if __name__ == "__main__":
+    print(portfolio_cost('Data/portfolio2.dat'))
