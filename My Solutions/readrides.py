@@ -31,6 +31,19 @@ def read_rides_as_dict(filename):
             records.append(record)
     return records
 
+def read_rides_as_columns(filename):
+    records = []
+    with open(filename) as f:
+        rows = csv.reader(f)
+        headings = next(rows)     # Skip headers
+        routes, dates, daytypes, rides = [], [], [], []
+        for row in rows:
+            routes.append(row[0])
+            dates.append(row[1])
+            daytypes.append(row[2])
+            rides.append(int(row[3]))
+        records = dict(routes=routes, dates=dates, daytypes=daytypes, rides=rides)
+    return records
 
 class Row:
     def __init__(self, route, date, daytype, rides):
@@ -104,5 +117,6 @@ if __name__ == '__main__':
     # rows = read_rides_as_dict('Data/ctabus.csv')
     # rows = read_rides_as_class('Data/ctabus.csv')
     # rows = read_rides_as_namedtuple('Data/ctabus.csv')
-    rows = read_rides_as_slots('Data/ctabus.csv')
+    # rows = read_rides_as_slots('Data/ctabus.csv')
+    rows = read_rides_as_columns('Data/ctabus.csv')
     print('Memory Use: Current %d, Peak %d' % tracemalloc.get_traced_memory())
