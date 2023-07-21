@@ -20,3 +20,9 @@ def read_portfolio(filename):
         for row in rows:
             ret.append(Stock(row[0], int(row[1]), float(row[2])))
     return ret
+
+def print_portfolio(portfolio):
+    print('%10s %10s %10s' % ("names", "shares", "price"))
+    print('%10s %10s %10s' % ("-"*10, "-"*10, "-"*10))
+    for s in portfolio:
+        print('%10s %10d %10.2f' % (s.name, s.shares, s.price))
