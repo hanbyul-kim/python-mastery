@@ -43,16 +43,16 @@ class RideData(collections.Sequence):
         self.numrides.append(d['rides'])
 
 
-def read_rides_as_dicts(filename):
+def read_rides_as_dicts(filename, types):
     records = RideData()
     with open(filename) as f:
         rows = csv.reader(f)
         headings = next(rows)     # Skip headers
         for row in rows:
-            route = row[0]
-            date = row[1]
-            daytype = row[2]
-            rides = int(row[3])
+            route = types[0](row[0])
+            date = types[1](row[1])
+            daytype = types[2](row[2])
+            rides = types[3]((row[3]))
             record = {'route': route, 'date': date, 'daytype': daytype, 'rides': rides}
             records.append(record)
     return records
@@ -138,9 +138,10 @@ def read_rides_as_slots(filename):
 
 if __name__ == '__main__':
     import tracemalloc
+    from sys import intern
     tracemalloc.start()
     # rows = read_rides_as_tuples('Data/ctabus.csv')
-    rows = read_rides_as_dicts('Data/ctabus.csv')
+    rows = read_rides_as_dicts('Data/ctabus.csv', [intern,intern,intern,int])
     # rows = read_rides_as_class('Data/ctabus.csv')
     # rows = read_rides_as_namedtuple('Data/ctabus.csv')
     # rows = read_rides_as_slots('Data/ctabus.csv')
