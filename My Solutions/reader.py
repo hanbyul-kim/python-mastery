@@ -1,3 +1,5 @@
+import csv
+
 def read_csv_as_dicts(filename, types):
     with open(filename) as f:
         header = next(f).strip().split(',')
@@ -8,6 +10,15 @@ def read_csv_as_dicts(filename, types):
 
         return records
 
+
+def read_csv_as_instances(filename, cls):
+    ret = []
+    with open(filename) as f:
+        rows = csv.reader(f)
+        header = next(rows)
+        for row in rows:
+            ret.append(cls.from_row(row))
+    return ret
 
 if __name__ == "__main__":
     import tracemalloc
