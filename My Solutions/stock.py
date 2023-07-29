@@ -25,7 +25,7 @@ def read_portfolio(filename):
         rows = csv.reader(f)
         header = next(rows)
         for row in rows:
-            ret.append(Stock(row[0], int(row[1]), float(row[2])))
+            ret.append(Stock.from_row(row))
     return ret
 
 def print_portfolio(portfolio):
