@@ -19,13 +19,13 @@ class Stock:
     def sell(self, shares):
         self.shares -= shares
 
-def read_portfolio(filename):
+def read_portfolio(cls, filename):
     ret = []
     with open(filename) as f:
         rows = csv.reader(f)
         header = next(rows)
         for row in rows:
-            ret.append(Stock.from_row(row))
+            ret.append(cls.from_row(row))
     return ret
 
 def print_portfolio(portfolio):
